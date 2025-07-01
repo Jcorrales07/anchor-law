@@ -1,6 +1,6 @@
 // src/components/layout/Header.tsx
 import React, { useState } from 'react';
-import { ChevronDown, ChevronUp, Menu, X } from 'lucide-react';
+import { ChevronUp, Menu } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
 import "../../styles/logo-animations.css"
