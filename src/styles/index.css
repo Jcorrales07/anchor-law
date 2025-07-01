@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Alike&family=Playfair+Display:wght@400;700&display=swap');
+
+@import "tailwindcss";
+
+
+@theme {
+    /* Fuentes Tipograficas */
+    --font-primary-playfair: 'Playfair Display', ui-serif, Georgia, serif;
+    --font-secondary-alike: 'Alike', ui-sans-serif, system-ui, sans-serif;
+
+    /* White */
+    --color-romance-50: #fdfcfc;
+    /* Dark Red */
+    --color-heath-950: #591313;
+    /* Dark Grayish Navy Blue */
+    --color-tuna-900: #2c303b;
+    /* Light Gold */
+    --color-grandis-300: #fcce80;
+    /* Dark Gold */
+    --color-harvest-gold-400: #d1ad73;
+}
