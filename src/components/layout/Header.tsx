@@ -5,16 +5,16 @@ import { Link, useLocation } from 'react-router-dom';
 
 import "../../styles/logo-animations.css"
 
+const navigationItems = [
+    { label: 'INICIO', href: '/' },
+    { label: 'NOSOTROS', href: '/nosotros' },
+    { label: 'SERVICIOS', href: '/servicios' },
+    { label: 'CONTÁCTANOS', href: '/contactanos' }
+];
+
 const Header: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const location = useLocation();
-
-    const navigationItems = [
-        { label: 'INICIO', href: '/' },
-        { label: 'NOSOTROS', href: '/nosotros' },
-        { label: 'SERVICIOS', href: '/servicios' },
-        { label: 'CONTÁCTANOS', href: '/contactanos' }
-    ];
 
     const isActive = (href: string) => location.pathname === href;
 
@@ -92,11 +92,7 @@ const Header: React.FC = () => {
                         </nav>
                     </div>
                 </div>
-
             </div>
-
-            {/* Mobile Menu Button */}
-
         </header>
     );
 };
