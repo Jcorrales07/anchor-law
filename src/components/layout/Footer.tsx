@@ -31,7 +31,7 @@ const socialLinks = [
 
 const Footer: React.FC = () => {
     return (
-        <footer className="bg-heath-950 relative">
+        <footer className="bg-heath-950 relative flex flex-row justify-center items-center">
 
             {/* Líneas decorativas */}
             <div className="absolute inset-0 pointer-events-none z-10">
@@ -48,7 +48,7 @@ const Footer: React.FC = () => {
             </div>
 
             {/* Contenido del footer */}
-            <div className="relative z-0 px-4 py-8 lg:pt-[104px] lg:pb-[143px] lg:mr-[218px] lg:ml-[108px]">
+            <div className="relative z-0  lg:pt-[104px] lg:pb-[143px] ">
                 
                 {/* MÓVIL: Layout vertical */}
                 <div className="lg:hidden flex flex-col items-center space-y-6">
@@ -95,16 +95,16 @@ const Footer: React.FC = () => {
                 </div>
 
                 {/* DESKTOP: Layout horizontal */}
-                <div className="hidden lg:flex flex-row items-center justify-between">
+                <div className="hidden lg:flex flex-row items-center justify-between gap-8">
                     {/* Logo desktop */}
                     <img
                         src="/images/logo/AL2PC.png"
                         alt="Anchor Law - Logo para computadoras"
-                        className="w-[351px]"
+                        className="w-48 lg:w-56 xl:w-72 2xl:w-[351px]"
                     />
 
                     {/* Contact Info desktop */}
-                    <div className="text-center">
+                    <div className="text-center flex-1 mx-8 lg:mx-12">
                         <div className="space-y-1">
                             <p className="font-secondary-alike text-harvest-gold-400 text-base">
                                 +504 1111 2222
@@ -119,7 +119,7 @@ const Footer: React.FC = () => {
                     </div>
 
                     {/* Social Links desktop */}
-                    <div className="flex justify-end space-x-4">
+                    <div className="flex justify-end space-x-2 lg:space-x-3 xl:space-x-4">
                         {socialLinks.map((social) => {
                             const IconComponent = social.icon;
                             return (
