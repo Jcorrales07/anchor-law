@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { ChevronDown, Send, Scale, Users, Building, FileText, Heart, Shield, Calculator, Stethoscope, Search, UserCheck, Globe, Building2, Calendar, HelpCircle } from 'lucide-react';
 import { FaTiktok, FaFacebookSquare, FaLinkedin, FaGoogle } from "react-icons/fa"
@@ -55,7 +55,7 @@ export default function LegalConsultationForm() {
     const {
         register,
         handleSubmit,
-        formState: { errors, isValid, isDirty },
+        formState: { errors, },
         watch,
         setValue,
         trigger,
@@ -75,7 +75,7 @@ export default function LegalConsultationForm() {
 
     const watchedFields = watch();
     const isFormComplete = () => {
-        const { nombre, apellido, telefono, correo, materia, consulta, comoNosConociste } = watchedFields;
+        const { nombre, apellido, telefono, correo, consulta, } = watchedFields;
 
         return (
             nombre && nombre.trim() !== '' &&
