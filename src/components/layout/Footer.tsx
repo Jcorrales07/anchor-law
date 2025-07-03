@@ -51,7 +51,7 @@ const Footer: React.FC = () => {
                     <img
                         src="/images/logo/LogowoText.png"
                         alt="Anchor Law - Logo móvil"
-                        className="w-10"
+                        className="w-10 mr-5"
                     />
 
                     {/* Contact Info móvil */}
@@ -70,7 +70,7 @@ const Footer: React.FC = () => {
                     </div>
 
                     {/* Social Links móvil */}
-                    <div className="flex justify-center space-x-3">
+                    <div className="flex justify-center space-x-3 flex-wrap columns-2">
                         {socialLinks.map((social) => {
                             return (
                                 <a
