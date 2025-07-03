@@ -70,13 +70,13 @@ const HeroSection: React.FC = () => {
                         className="flex items-end justify-center z-20 overflow-hidden"
                         style={{
                             gridColumn: '5 / 13',
-                            gridRow: `3 / 15`,
+                            gridRow: '3 / 15',
                             minWidth: 0,
                             minHeight: 0
                         }}
                     >
                         <img
-                            src="/images/team/3.png"
+                            src="/images/team/3bgl2.png"
                             alt="Dos abogadas profesionales de Anchor Law"
                             className="h-full w-auto object-cover mix-blend-multiply"
                             loading="eager"
@@ -136,7 +136,7 @@ const HeroSection: React.FC = () => {
                     {/* Imagen de abogadas */}
                     <div className="relative w-[400.4px] h-[460.5px]">
                         <img
-                            src="/images/team/3.png"
+                            src="/images/team/3bgl2.png"
                             alt="Dos abogadas profesionales de Anchor Law"
                             className="absolute -bottom-28 w-full h-full object-cover"
                             loading="eager"
