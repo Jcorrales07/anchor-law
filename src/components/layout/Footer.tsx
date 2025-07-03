@@ -19,7 +19,7 @@ const socialLinks = [
     },
     {
         name: 'WhatsApp',
-        href: 'https://wa.me/50411112222',
+        href: 'https://wa.me/50488495804',
         icon: '/images/icons/whatsapp.png'
     }
 ];
@@ -57,9 +57,9 @@ const Footer: React.FC = () => {
                     {/* Contact Info móvil */}
                     <div className="text-center">
                         <div className="space-y-2 text-[12px]">
-                            <p className="font-secondary-alike text-harvest-gold-400">
-                                +504 1111 2222
-                            </p>
+                            <a href='https://wa.me/50488495804' className="font-secondary-alike text-harvest-gold-400 text-base">
+                                +504 8849 5804
+                            </a>
                             <a
                                 href="mailto:info@anchorlaw.hn"
                                 className="block font-secondary-alike text-harvest-gold-400 hover:text-grandis-300 transition-colors"
@@ -100,9 +100,9 @@ const Footer: React.FC = () => {
                     {/* Contact Info desktop */}
                     <div className="text-center flex-1 mx-8 lg:mx-12">
                         <div className="space-y-1">
-                            <p className="font-secondary-alike text-harvest-gold-400 text-base">
-                                +504 1111 2222
-                            </p>
+                            <a href='https://wa.me/50488495804' className="font-secondary-alike text-harvest-gold-400 text-base">
+                                +504 8849 5804
+                            </a>
                             <a
                                 href="mailto:info@anchorlaw.hn"
                                 className="block font-secondary-alike text-harvest-gold-400 text-base hover:text-grandis-300 transition-colors"
