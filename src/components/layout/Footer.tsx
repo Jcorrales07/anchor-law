@@ -5,22 +5,22 @@ const socialLinks = [
     {
         name: 'LinkedIn',
         href: 'http://www.linkedin.com/in/anchor-law-hn',
-        icon: '/images/services/linkedin.svg'
+        icon: '/images/icons/linkedin.png'
     },
     {
         name: 'Instagram',
         href: 'https://www.instagram.com/anchorlaw.hn?igsh=MWJlazFkbTBwNjh2Mg==',
-        icon: '/images/services/instagram.svg'
+        icon: '/images/icons/instagram.png'
     },
     {
         name: 'Facebook',
         href: 'https://www.facebook.com/share/1DxBj9vxMH/',
-        icon: '/images/services/facebook.svg'
+        icon: '/images/icons/facebook.png'
     },
     {
         name: 'WhatsApp',
         href: 'https://wa.me/50411112222',
-        icon: '/images/services/whatsapp.svg'
+        icon: '/images/icons/whatsapp.png'
     }
 ];
 
@@ -78,9 +78,10 @@ const Footer: React.FC = () => {
                                     href={social.href}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-harvest-gold-400 hover:text-grandis-300 hover:scale-110 transition-all duration-300 p-2 rounded-lg border border-harvest-gold-400 hover:bg-harvest-gold-400 hover:bg-opacity-10"
+                                    className="text-harvest-gold-400 hover:text-grandis-300 hover:scale-110 transition-all duration-300"
                                     aria-label={social.name}
                                 >
+                                    <img src={social.icon} alt={social.name} className='w-[17.3px]'/>
                                 </a>
                             );
                         })}
@@ -120,9 +121,10 @@ const Footer: React.FC = () => {
                                     href={social.href}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-harvest-gold-400 hover:text-grandis-300 hover:scale-110 transition-all duration-300 p-2 rounded-lg border border-harvest-gold-400 hover:bg-harvest-gold-400 hover:bg-opacity-10"
+                                    className="text-harvest-gold-400 hover:text-grandis-300 hover:scale-110 transition-all duration-300"
                                     aria-label={social.name}
                                 >
+                                    <img src={social.icon} alt={social.name} className='w-[39.7px]' />
                                 </a>
                             );
                         })}
