@@ -8,16 +8,11 @@ const ErrorPage: React.FC = () => {
         <div className="min-h-screen bg-heath-950 relative flex flex-col justify-center items-center">
 
             {/* Líneas decorativas */}
-            <div className="absolute inset-0 pointer-events-none z-10">
-                {/* Línea superior */}
-                <div className="absolute top-0 bottom-0 right-24 border-l-4 border-harvest-gold-400"></div>
+            <span className="absolute inset-0 border-t-4 lg:border-r-4 border-harvest-gold-400 pointer-events-none mt-[48px] lg:mt-[64px] lg:mr-[96px]"></span>
 
-                {/* Línea inferior */}
-                <div className="absolute top-0 bottom-0 left-24 border-l-4 border-harvest-gold-400"></div>
-            </div>
 
             {/* Contenido principal */}
-            <div className="relative text-tuna-900 flex flex-col justify-center items-center z-20 text-center px-4 max-w-2xl mx-auto">
+            <div className="relative text-tuna-900 flex flex-col justify-center items-center z-20 text-center px-4 max-w-2xl mx-auto pt-20">
 
                 {/* Logo/Icono */}
                 <div className="mb-8 mx-auto">
@@ -40,17 +35,10 @@ const ErrorPage: React.FC = () => {
 
                 {/* Mensaje descriptivo */}
                 <p className="font-secondary-alike text-harvest-gold-400 text-base lg:text-lg opacity-90 mb-8 leading-relaxed">
-                    Lo sentimos, la página que buscas no se encuentra disponible. 
+                    Lo sentimos, la página que buscas no se encuentra disponible.
                     <br className="hidden sm:block" />
                     Es posible que haya sido movida o no exista.
                 </p>
-
-                {/* Mensaje legal elegante */}
-                <div className="mb-10">
-                    <p className="font-secondary-alike text-harvest-gold-400 text-sm lg:text-base opacity-75 italic">
-                        "En Anchor Law, cada camino tiene una solución legal."
-                    </p>
-                </div>
 
                 {/* Botones de acción */}
                 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">

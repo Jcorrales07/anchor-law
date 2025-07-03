@@ -95,24 +95,27 @@ const Services: React.FC = () => {
                 < div className="lg:hidden grid grid-cols-2 gap-8 sm:gap-10 max-w-md mx-auto" >
                     {
                         serviceAreas.map((area) => (
-                            <div
-                                key={area.id}
-                                className="flex flex-col items-center text-center group cursor-pointer transition-all duration-300 hover:scale-105"
-                            >
-                                {/* Ícono */}
-                                <div className="mb-4 group-hover:scale-110 transition-transform duration-300">
-                                    <img
-                                        src={area.icon}
-                                        alt={`Ícono ${area.name}`}
-                                        className="w-12 h-12 sm:w-16 sm:h-16 object-contain transition-all duration-300"
-                                    />
-                                </div>
+                            <Link key={area.id}
+                                to={'/servicios'}>
+                                <div
+                                    key={area.id}
+                                    className="flex flex-col items-center text-center group cursor-pointer transition-all duration-300 hover:scale-105"
+                                >
+                                    {/* Ícono */}
+                                    <div className="mb-4 group-hover:scale-110 transition-transform duration-300">
+                                        <img
+                                            src={area.icon}
+                                            alt={`Ícono ${area.name}`}
+                                            className="w-20 h-20 sm:w-16 sm:h-16 object-contain transition-all duration-300"
+                                        />
+                                    </div>
 
-                                {/* Nombre */}
-                                <h3 className="font-secondary-alike text-harvest-gold-400 text-sm sm:text-base font-medium group-hover:text-grandis-300 transition-colors duration-300">
-                                    {area.name}
-                                </h3>
-                            </div>
+                                    {/* Nombre */}
+                                    <h3 className="font-secondary-alike text-harvest-gold-400 text-sm sm:text-base font-medium group-hover:text-grandis-300 transition-colors duration-300">
+                                        {area.name}
+                                    </h3>
+                                </div>
+                            </Link>
                         ))
                     }
                 </div>

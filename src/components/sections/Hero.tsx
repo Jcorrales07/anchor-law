@@ -97,7 +97,7 @@ const HeroSection: React.FC = () => {
                             Justicia a tu <br />
                             lado, con un <br />
                             ancla como <br />
-                            <p className='underline'>aliado.</p>
+                            aliado.
                         </h1>
                     </div>
 
@@ -117,7 +117,7 @@ const HeroSection: React.FC = () => {
             <div className="lg:hidden flex flex-col min-h-screen bg-romance-50 relative">
 
                 <div
-                    className="absolute bottom-8 right-35 w-full h-full flex items-center justify-center z-99 logo-slide-down pointer-events-none"
+                    className="absolute bottom-10 right-35 w-full h-full flex items-center justify-center z-99 logo-slide-down pointer-events-none"
                 >
                     <img
                         src="/images/logo/Logoopaco.png"
@@ -127,25 +127,25 @@ const HeroSection: React.FC = () => {
                 </div>
 
                 {/* Container principal para centrar contenido */}
-                <div className="relative flex-1 flex flex-col justify-center items-center">
+                <div className="min-h-screen relative flex flex-col items-center justify-end overflow-hidden">
+                    {/* Texto principal (posicionado sobre la imagen) */}
+                    <h1 className="absolute z-10 bottom-[360px] font-primary-playfair font-bold text-3xl text-tuna-900 leading-tight text-center">
+                        Justicia a tu lado, <br /> con un ancla como<br />aliado.
+                    </h1>
 
-                    {/* Texto principal - Centrado arriba */}
-                    <div className="text-center mt-[180px] mb-8 sm:mb-12">
-                        <h1 className="font-primary-playfair font-bold text-3xl sm:text-4xl md:text-5xl text-tuna-900 leading-tight max-w-sm sm:max-w-md mx-auto">
-                            Justicia a tu lado, <br /> con un ancla como<br />aliado.
-                        </h1>
-                    </div>
-
-                    {/* Imagen de abogadas - Centrada abajo */}
-                    <div className="absoul flex justify-center items-end flex-1 ">
+                    {/* Imagen de abogadas */}
+                    <div className="relative w-[400.4px] h-[460.5px]">
                         <img
                             src="/images/team/3.png"
                             alt="Dos abogadas profesionales de Anchor Law"
-                            className=" w-[400px]"
+                            className="absolute -bottom-28 w-full h-full object-cover"
                             loading="eager"
                         />
                     </div>
                 </div>
+
+
+
             </div>
         </section>
     );
