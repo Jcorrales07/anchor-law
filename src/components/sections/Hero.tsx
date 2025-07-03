@@ -129,7 +129,7 @@ const HeroSection: React.FC = () => {
                 {/* Container principal para centrar contenido */}
                 <div className="min-h-screen relative flex flex-col items-center justify-end overflow-hidden">
                     {/* Texto principal (posicionado sobre la imagen) */}
-                    <h1 className="absolute z-10 bottom-[360px] font-primary-playfair font-bold text-3xl text-tuna-900 leading-tight text-center">
+                    <h1 className="absolute z-10 bottom-[470px] font-primary-playfair font-bold text-3xl text-tuna-900 leading-tight text-center">
                         Justicia a tu lado, <br /> con un ancla como<br />aliado.
                     </h1>
 
@@ -138,7 +138,7 @@ const HeroSection: React.FC = () => {
                         <img
                             src="/images/team/3bgl2.png"
                             alt="Dos abogadas profesionales de Anchor Law"
-                            className="absolute -bottom-28 w-full h-full object-cover"
+                            className="absolute  w-full h-full object-cover"
                             loading="eager"
                         />
                     </div>
