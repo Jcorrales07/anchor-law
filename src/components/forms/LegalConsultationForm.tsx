@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { ChevronDown, Send, Scale, Users, Building, FileText, Heart, Shield, Calculator, Stethoscope, Search, UserCheck, Globe, Building2, Calendar, HelpCircle } from 'lucide-react';
 import { FaTiktok, FaFacebookSquare, FaLinkedin, FaGoogle } from "react-icons/fa"
 import { RiInstagramFill } from "react-icons/ri"
@@ -44,7 +44,7 @@ const comoNosConociste = [
     { value: 'Otro', label: 'Otro', icon: HelpCircle }
 ];
 
-export default function LegalConsultationForm() {
+const LegalConsultationForm: React.FC = () => {
     const [isMateriaDropdownOpen, setIsMateriaDropdownOpen] = useState(false);
     const [isComoNosConocisteDropdownOpen, setIsComoNosConocisteDropdownOpen] = useState(false);
     const [selectedMateria, setSelectedMateria] = useState<any>(null);
@@ -58,8 +58,8 @@ export default function LegalConsultationForm() {
         formState: { errors, },
         watch,
         setValue,
-        trigger,
-        reset
+        reset,
+        control
     } = useForm<FormData>({
         mode: 'onSubmit', // Cambiar a onSubmit para que solo valide al enviar
         defaultValues: {
@@ -74,13 +74,22 @@ export default function LegalConsultationForm() {
     });
 
     const watchedFields = watch();
+
+    const isValidPhone = (phone: string) => {
+        if (!phone) return false;
+        // Remover espacios y caracteres especiales para contar solo dígitos
+        const digitsOnly = phone.replace(/\D/g, '');
+        // Un teléfono válido debe tener al menos 8 dígitos total
+        return digitsOnly.length >= 8;
+    };
+
     const isFormComplete = () => {
         const { nombre, apellido, telefono, correo, consulta, } = watchedFields;
 
         return (
             nombre && nombre.trim() !== '' &&
             apellido && apellido.trim() !== '' &&
-            telefono && telefono.trim() !== '' &&
+            isValidPhone(telefono) &&
             correo && correo.trim() !== '' &&
             selectedMateria && selectedMateria.value &&
             consulta && consulta.trim() !== '' &&
@@ -196,36 +205,76 @@ export default function LegalConsultationForm() {
                     </div>
 
                     {/* Teléfono */}
-                    <PhoneInput
-                        autoFormat={false}
-                        country={'hn'}
-                        value={watchedFields.telefono}
-                        onChange={(value) => setValue('telefono', value)}
-                        inputProps={{
-                            name: 'telefono',
-                            required: true,
-                            onBlur: () => trigger('telefono'),
-                        }}
-                        inputStyle={{
-                            width: '100%',
-                            backgroundColor: '#d1ad73',
-                            border: showValidation && errors.telefono ? '2px solid #f87171' : '2px solid transparent',
-                            borderRadius: '0px',
-                            height: '52px',
-                            fontSize: '16px',
-                            fontFamily: 'Alike',
-                            content: ' '
-                        }}
-                        buttonStyle={{
-                            backgroundColor: '#d1ad73',
-                            border: showValidation && errors.telefono ? '2px solid #f87171' : '2px solid transparent',
-                        }}
-                        containerStyle={{
-                            width: '100%',
-                        }}
-                        specialLabel=""
-                    />
-
+                    <div>
+                        <Controller
+                            name="telefono"
+                            control={control}
+                            rules={{
+                                required: 'El teléfono es requerido',
+                                validate: {
+                                    hasNumber: (value) => {
+                                        if (!value) return 'El teléfono es requerido';
+                                        const digitsOnly = value.replace(/\D/g, '');
+                                        return digitsOnly.length >= 8 || 'Ingresa un número de teléfono válido';
+                                    }
+                                }
+                            }}
+                            render={({ field }) => (
+                                <PhoneInput
+                                    {...field}
+                                    inputProps={{
+                                        name: 'telefono',
+                                        id: 'telefono'
+                                    }}
+                                    autoFormat={false}
+                                    country={'hn'}
+                                    value={field.value}
+                                    onChange={(value) => field.onChange(value)}
+                                    enableSearch={true}
+                                    disableSearchIcon={false}
+                                    inputStyle={{
+                                        width: '100%',
+                                        backgroundColor: showValidation && isValidPhone(field.value) ? '#d1ad73' : '#fef2f2',
+                                        border: showValidation && errors.telefono ? '2px solid #f87171' : '2px solid transparent',
+                                        borderRadius: '0px',
+                                        height: '52px',
+                                        fontSize: '16px',
+                                        fontFamily: 'Alike',
+                                        paddingLeft: '65px'
+                                    }}
+                                    placeholder='+50436973697'
+                                    buttonStyle={{
+                                        backgroundColor: '#d1ad73',
+                                        border: showValidation && errors.telefono ? '2px solid #f87171' : '2px solid transparent',
+                                        borderRight: 'none',
+                                        width: '60px',
+                                        borderRadius: '0px'
+                                    }}
+                                    containerStyle={{
+                                        width: '100%',
+                                    }}
+                                    dropdownStyle={{
+                                        backgroundColor: '#ffffff',
+                                        border: '1px solid #d1d5db',
+                                        borderRadius: '8px',
+                                        boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
+                                        zIndex: 9999
+                                    }}
+                                    searchStyle={{
+                                        backgroundColor: '#f9fafb',
+                                        border: '1px solid #d1d5db',
+                                        borderRadius: '6px',
+                                        padding: '8px 12px',
+                                        margin: '10px'
+                                    }}
+                                    specialLabel=""
+                                />
+                            )}
+                        />
+                        {showValidation && errors.telefono && (
+                            <p className="text-red-500 text-sm mt-1">{errors.telefono.message}</p>
+                        )}
+                    </div>
 
 
                     {/* Correo electrónico */}
@@ -394,3 +443,5 @@ export default function LegalConsultationForm() {
         </div>
     );
 }
+
+export default LegalConsultationForm
