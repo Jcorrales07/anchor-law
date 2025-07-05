@@ -15,6 +15,8 @@ const navigationItems = [
 const Header = forwardRef<HTMLElement>((props, ref) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const location = useLocation();
+    console.log(props)
+    console.clear()
 
     const isActive = (href: string) => location.pathname === href;
 
