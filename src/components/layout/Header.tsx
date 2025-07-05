@@ -1,5 +1,5 @@
 // src/components/layout/Header.tsx
-import React, { useState } from 'react';
+import React, { useState, forwardRef } from 'react';
 import { ChevronUp, Menu } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -12,14 +12,14 @@ const navigationItems = [
     { label: 'CONTÁCTANOS', href: '/contactanos' }
 ];
 
-const Header: React.FC = () => {
+const Header = forwardRef<HTMLElement>((props, ref) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const location = useLocation();
 
     const isActive = (href: string) => location.pathname === href;
 
     return (
-        <header className="bg-heath-950 relative flex flex-row min-h-screen justify-center items-center">
+        <header ref={ref} className="bg-heath-950 relative flex flex-row min-h-screen justify-center items-center">
 
             <span className="absolute inset-0 border-t-4 lg:border-r-4 border-harvest-gold-400 pointer-events-none mt-[48px] lg:mt-[64px] lg:mr-[96px]"></span>
 
@@ -95,6 +95,8 @@ const Header: React.FC = () => {
             </div>
         </header>
     );
-};
+});
+
+Header.displayName = 'Header';
 
 export default Header;

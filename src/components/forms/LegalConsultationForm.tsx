@@ -76,7 +76,8 @@ const LegalConsultationForm: React.FC = () => {
     const watchedFields = watch();
 
     const isValidPhone = (phone: string) => {
-        if (!phone) return false;
+        console.log(phone === '')
+        if (!(phone === '')) return false;
         // Remover espacios y caracteres especiales para contar solo dígitos
         const digitsOnly = phone.replace(/\D/g, '');
         // Un teléfono válido debe tener al menos 8 dígitos total

@@ -50,7 +50,7 @@ const HeroSection: React.FC = () => {
 
                     {/* Logo de fondo */}
                     <div
-                        className="flex items-center justify-center z-99 logo-slide-down"
+                        className="flex items-center justify-center z-30 logo-slide-down"
                         style={{
                             gridColumn: '2 / 7',
                             gridRow: `2 / 11`,
@@ -85,7 +85,7 @@ const HeroSection: React.FC = () => {
 
                     {/* Texto principal */}
                     <div
-                        className="flex items-center justify-start z-99 overflow-hidden"
+                        className="flex items-center justify-start z-20 overflow-hidden"
                         style={{
                             gridColumn: '13 / 19',
                             gridRow: ` 4 / 9`,
