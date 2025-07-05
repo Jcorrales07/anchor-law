@@ -1,5 +1,5 @@
 // src/components/layout/Header.tsx
-import React, { useState, forwardRef } from 'react';
+import { useState, forwardRef } from 'react';
 import { ChevronUp, Menu } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
