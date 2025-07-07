@@ -34,19 +34,21 @@ const Introduction: React.FC = () => {
             </div>
 
             {/* Movil */}
-            <div className="lg:hidden flex flex-col items-center lg:items-start gap-6 px-10 max-w-[700px]">
-                <img src="/images/logo/A1Movil.png" alt="Logo de Anchor Law" className="w-[290.6px]" />
+            <div className="lg:hidden flex flex-col items-center gap-6 px-10">
+                <div className="w-[290.6px]">
+                    <img src="/images/logo/A1Movil.png" alt="Logo de Anchor Law" className="w-full" />
 
-                <p className="text-base text-left text-harvest-gold-400 font-secondary-alike leading-relaxed">
-                    En Anchor Law ofrecemos asesoría estratégica,
-                    representación confiable y soluciones legales
-                    adaptadas a tus necesidades.
-                    <br />
-                    <br />
-                    Nuestro equipo trabaja con rigor, ética y cercanía
-                    para proteger tus derechos y acompañarte en
-                    cada paso del proceso legal.
-                </p>
+                    <p className="text-base text-justify text-harvest-gold-400 font-secondary-alike leading-relaxed mt-4">
+                        En Anchor Law ofrecemos asesoría estratégica,
+                        representación confiable y soluciones legales
+                        adaptadas a tus necesidades.
+                        <br />
+                        <br />
+                        Nuestro equipo trabaja con rigor, ética y cercanía
+                        para proteger tus derechos y acompañarte en
+                        cada paso del proceso legal.
+                    </p>
+                </div>
             </div>
         </section>
     );
