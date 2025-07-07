@@ -23,7 +23,7 @@ const Header = forwardRef<HTMLElement>((props, ref) => {
     return (
         <header ref={ref} className="bg-heath-950 relative flex flex-row min-h-screen justify-center items-center">
 
-            <span className="absolute inset-0 border-t-4 lg:border-r-4 border-harvest-gold-400 pointer-events-none mt-[48px] lg:mt-[64px] lg:mr-[96px]"></span>
+            <div className="absolute inset-0 border-t-4 lg:border-r-4 border-harvest-gold-400 pointer-events-none mt-[48px] lg:mt-[64px] lg:mr-[96px]"></div>
 
             <div className="flex flex-col items-center mb-8">
                 <div className='hidden lg:inline'>

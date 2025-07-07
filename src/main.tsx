@@ -11,12 +11,14 @@ import AboutUsPage from './pages/AboutUsPage.tsx'
 import ServicesPage from './pages/ServicesPage.tsx'
 import ContactUsPage from './pages/ContactUs.tsx'
 import Navbar from './components/layout/Navbar.tsx'
+import ScrollToTop from './components/ui/ScrollToTop.tsx'
 import { HeaderHeightProvider } from './contexts/HeaderHeightContext.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
       <HeaderHeightProvider>
+        <ScrollToTop />
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />

@@ -151,10 +151,10 @@ const LegalConsultationForm: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen py-8 px-4 relative">
+        <div className="min-h-screen  relative bg-romance-50 flex justify-center items-center">
             <div className="lg:block hidden absolute top-0 right-24 bottom-0 border-r-4 border-heath-950 z-30"></div>
 
-            <div className="max-w-2xl mx-auto p-8">
+            <div className="max-w-2xl mx-auto px-8 py-20">
                 <div className="text-center mb-8">
                     <h1 className="font-primary-playfair text-center text-[29px] md:text-4xl font-bold text-gray-800 mb-6">
                         REALIZA TUS CONSULTAS

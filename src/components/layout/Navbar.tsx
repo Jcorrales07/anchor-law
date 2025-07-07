@@ -3,6 +3,13 @@ import { Menu, X } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useHeaderHeight } from '../../contexts/HeaderHeightContext';
 
+const navItems = [
+    { label: 'INICIO', id: 'home', path: '/' },
+    { label: 'NOSOTROS', id: 'about', path: '/nosotros' },
+    { label: 'SERVICIOS', id: 'services', path: '/servicios' },
+    { label: 'CONTÁCTANOS', id: 'contact', path: '/contactanos' }
+];
+
 const Navbar: React.FC = () => {
     const [isVisible, setIsVisible] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -14,49 +21,46 @@ const Navbar: React.FC = () => {
     const isHomePage = location.pathname === '/';
 
     useEffect(() => {
+        let lastScrollY = window.scrollY;
+
         const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+            const isScrollingUp = currentScrollY < lastScrollY;
+
             if (isHomePage) {
-                // En home: aparece después de la altura real del Header
-                setIsVisible(window.scrollY > headerHeight);
+                const scrolledPastHeader = currentScrollY > headerHeight;
+
+                setIsVisible(scrolledPastHeader && isScrollingUp);
             } else {
-                // En otras páginas: siempre visible
-                setIsVisible(true);
+                setIsVisible(isScrollingUp && currentScrollY > 0);
             }
+
+            lastScrollY = currentScrollY;
         };
 
-        // Ejecutar inmediatamente para páginas que no sean home
-        handleScroll();
+        handleScroll(); // para verificar estado inicial
 
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, [isHomePage, headerHeight]);
+
 
     const handleNavigation = (path: string) => {
         navigate(path);
         setIsMobileMenuOpen(false);
     };
 
-    const navItems = [
-        { label: 'INICIO', id: 'home', path: '/' },
-        { label: 'NOSOTROS', id: 'about', path: '/nosotros' },
-        { label: 'SERVICIOS', id: 'services', path: '/servicios' },
-        { label: 'CONTÁCTANOS', id: 'contact', path: '/contactanos' }
-    ];
-
     return (
-        <nav className={`h-fit fixed top-0 left-0 right-0 z-50 bg-heath-950 shadow-lg transition-all duration-300 ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
-            }`}>
+        <nav className={`h-fit fixed top-0 left-0 right-0 z-50 bg-heath-950 shadow-lg transition-all duration-300 ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}`}>
             <div className="max-w-7xl mx-auto px-4">
-                <div className="flex items-center justify-between lg:justify-end lg:gap-10 lg:px-5">
+                <div className="flex items-center justify-between lg:justify-end lg:gap-10">
                     {/* Logo */}
-                    <div className="flex items-center justify-center gap-4 p-4 lg:py-4">
-                        <button
-                            onClick={() => handleNavigation('/')}
-                            className="w-8 flex items-center space-x-2 text-white hover:text-red-200 transition-colors duration-200"
-                        >
-                            <img src="/images/logo/LogowoText.png" alt="Logo de Anchor Law" />
-                        </button>
-                        <p className='text-center text-harvest-gold-400 font-primary-playfair font-bold text-[20px]'>Anchor Law</p>
+                    <div
+                        className="cursor-pointer flex items-center justify-center gap-4 p-4 lg:py-4"
+                        onClick={() => handleNavigation('/')}
+                    >
+                        <img src="/images/logo/LogowoText.png" alt="Logo de Anchor Law" className='w-8' />
+                        <p className='text-center text-harvest-gold-400 font-primary-playfair font-bold text-[20px]'>ANCHOR LAW</p>
                     </div>
 
                     {/* Desktop Navigation */}

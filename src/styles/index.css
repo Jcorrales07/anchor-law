@@ -21,3 +21,7 @@
     /* Dark Gold */
     --color-harvest-gold-400: #d1ad73;
 }
+
+:root {
+    background-color: var(--color-heath-950);
+}
