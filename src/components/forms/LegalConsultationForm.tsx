@@ -77,11 +77,11 @@ const LegalConsultationForm: React.FC = () => {
 
     const isValidPhone = (phone: string) => {
         console.log(phone === '')
-        if (!(phone === '')) return false;
+        if (!phone) return false;
         // Remover espacios y caracteres especiales para contar solo dígitos
         const digitsOnly = phone.replace(/\D/g, '');
         // Un teléfono válido debe tener al menos 8 dígitos total
-        return digitsOnly.length >= 8;
+        return digitsOnly.length > 3 && digitsOnly.length >= 8;
     };
 
     const isFormComplete = () => {
@@ -235,8 +235,9 @@ const LegalConsultationForm: React.FC = () => {
                                     disableSearchIcon={false}
                                     inputStyle={{
                                         width: '100%',
-                                        backgroundColor: showValidation && isValidPhone(field.value) ? '#d1ad73' : '#fef2f2',
-                                        border: showValidation && errors.telefono ? '2px solid #f87171' : '2px solid transparent',
+                                        backgroundColor: '#d1ad73',
+                                        // backgroundColor: errors.telefono ? '#d1ad73' : '#fef2f2',
+                                        border: showValidation && errors.telefono ? '2px solid #fa5050' : '2px solid transparent',
                                         borderRadius: '0px',
                                         height: '52px',
                                         fontSize: '16px',
@@ -246,7 +247,7 @@ const LegalConsultationForm: React.FC = () => {
                                     placeholder='+50436973697'
                                     buttonStyle={{
                                         backgroundColor: '#d1ad73',
-                                        border: showValidation && errors.telefono ? '2px solid #f87171' : '2px solid transparent',
+                                        border: showValidation && errors.telefono ? '2px solid #fa5050' : '2px solid transparent',
                                         borderRight: 'none',
                                         width: '60px',
                                         borderRadius: '0px'
@@ -318,7 +319,7 @@ const LegalConsultationForm: React.FC = () => {
                                         <span>{selectedMateria.label}</span>
                                     </>
                                 ) : (
-                                    <span className="text-gray-500">Materia</span>
+                                    <span className="text-[#685639]">Materia</span>
                                 )}
                             </div>
                             <ChevronDown className={`h-5 w-5 transition-transform duration-200 ${isMateriaDropdownOpen ? 'transform rotate-180' : ''}`} />
@@ -381,7 +382,7 @@ const LegalConsultationForm: React.FC = () => {
                                         <span>{selectedComoNosConociste.label}</span>
                                     </>
                                 ) : (
-                                    <span className="text-gray-500">¿Cómo nos conociste?</span>
+                                    <span className="text-[#685639]">¿Cómo nos conociste?</span>
                                 )}
                             </div>
                             <ChevronDown className={`h-5 w-5 transition-transform duration-200 ${isComoNosConocisteDropdownOpen ? 'transform rotate-180' : ''}`} />
