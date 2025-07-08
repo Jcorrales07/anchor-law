@@ -1,85 +1,4 @@
-const services = [
-    {
-        id: 1,
-        icon: "/images/services/civil.png",
-        title: "CIVIL",
-        items: [
-            "Contratos",
-            "Sucesiones",
-            "Bienes y propiedad"
-        ]
-    },
-    {
-        id: 2,
-        icon: "/images/services/familia.png",
-        title: "FAMILIA",
-        items: [
-            "Matrimonio",
-            "Divorcio",
-            "Pensiones alimenticias"
-        ]
-    },
-    {
-        id: 3,
-        icon: "/images/services/penal.png",
-        title: "PENAL",
-        items: [
-            "Denuncias",
-            "Querellas",
-            "Defensa privada"
-        ]
-    },
-    {
-        id: 4,
-        icon: "/images/services/fiscal.svg",
-        title: "FISCAL",
-        items: [
-            "Asesoría tributaria",
-            "Impuestos",
-            "Trámites"
-        ]
-    },
-    {
-        id: 5,
-        icon: "/images/services/admin.svg",
-        title: "ADMIN.",
-        items: [
-            "Registros sanitarios",
-            "Licencias sanitarias",
-            "Licencias ambientales"
-        ]
-    },
-    {
-        id: 6,
-        icon: "/images/services/mercantil.svg",
-        title: "MERCANTIL",
-        items: [
-            "Contratos mercantiles",
-            "Constituciones",
-            "Compliance"
-        ]
-    },
-    {
-        id: 7,
-        icon: "/images/services/laboral.png",
-        title: "LABORAL",
-        items: [
-            "Inscripción de planillas",
-            "Contratos laborales",
-            "Asesoría laboral"
-        ]
-    },
-    {
-        id: 8,
-        icon: "/images/services/propiedad intelectual.png",
-        title: "PROP. INT.",
-        items: [
-            "Derechos de autor",
-            "Marcas y patentes",
-            "Protección de obras"
-        ]
-    }
-];
+import { services } from "../../utils/servicesData";
 
 const AreaServices: React.FC = () => {
     return (
@@ -99,14 +18,14 @@ const AreaServices: React.FC = () => {
                             <div className="w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 mb-4 md:mb-6 flex items-center justify-center">
                                 <img 
                                     src={service.icon} 
-                                    alt={service.title}
+                                    alt={service.name}
                                     className="w-full h-full object-contain"
                                 />
                             </div>
                             
                             {/* Title */}
                             <h2 className="text-lg md:text-xl lg:text-2xl font-bold text-harvest-gold-400 mb-3 md:mb-4 font-terciary-raleway">
-                                {service.title}
+                                {service.name}
                             </h2>
                             
                             {/* Items */}

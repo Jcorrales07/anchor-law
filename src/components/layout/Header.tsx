@@ -5,12 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 import "../../styles/logo-animations.css"
 
-const navigationItems = [
-    { label: 'INICIO', href: '/' },
-    { label: 'NOSOTROS', href: '/nosotros' },
-    { label: 'SERVICIOS', href: '/servicios' },
-    { label: 'CONTÁCTANOS', href: '/contactanos' }
-];
+import { navItems } from '../../utils/navData';
 
 const Header = forwardRef<HTMLElement>((props, ref) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -33,11 +28,11 @@ const Header = forwardRef<HTMLElement>((props, ref) => {
                         className='xl:w-5xl lg:w-3xl logo-entrance'
                     />
                     <nav className="absolute lg:left-77 lg:top-104 xl:left-120 xl:top-121 2xl:left-252 2xl:top-190 space-x-12">
-                        {navigationItems.map((item) => (
+                        {navItems.map((item) => (
                             <Link
-                                key={item.href}
-                                to={item.href}
-                                className={`font-secondary-alike text-lg font-medium transition-colors duration-300 ${isActive(item.href)
+                                key={item.id}
+                                to={item.path}
+                                className={`font-secondary-alike text-lg font-medium transition-colors duration-300 ${isActive(item.path)
                                     ? 'text-grandis-300'
                                     : 'text-harvest-gold-400 hover:text-grandis-300'
                                     }`}
@@ -70,15 +65,15 @@ const Header = forwardRef<HTMLElement>((props, ref) => {
                                     ${isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}
                                     `}>
                         <nav className="text-end">
-                            {navigationItems.map((item, index) => (
+                            {navItems.map((item, index) => (
                                 <Link
-                                    key={item.href}
-                                    to={item.href}
+                                    key={item.id}
+                                    to={item.path}
                                     className={`block font-terciary-raleway text-[18px] font-medium 
                                                 transition-all duration-300 py-2
                                                 transform
                                                 ${isMenuOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'}
-                                                ${isActive(item.href)
+                                                ${isActive(item.path)
                                             ? 'text-grandis-300'
                                             : 'text-harvest-gold-400 hover:text-grandis-300'
                                         }

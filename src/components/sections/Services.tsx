@@ -1,56 +1,10 @@
 // src/components/sections/Services.tsx
-import { Link } from 'react-router';
 import React from 'react';
+import { Link } from 'react-router';
 
-interface ServiceArea {
-    id: string;
-    name: string;
-    icon: string;
-}
+import { services } from '../../utils/servicesData';
 
 const Services: React.FC = () => {
-    const serviceAreas: ServiceArea[] = [
-        {
-            id: 'civil',
-            name: 'CIVIL',
-            icon: '/images/services/civil.png' // Ícono de documentos
-        },
-        {
-            id: 'familia',
-            name: 'FAMILIA',
-            icon: '/images/services/familia.png' // Ícono de personas
-        },
-        {
-            id: 'penal',
-            name: 'PENAL',
-            icon: '/images/services/penal.png' // Ícono de esposas
-        },
-        {
-            id: 'fiscal',
-            name: 'FISCAL',
-            icon: '/images/services/fiscal.svg' // Ícono de calculadora
-        },
-        {
-            id: 'admon',
-            name: 'ADMIN.',
-            icon: '/images/services/admin.svg' // Ícono de columnas/banco
-        },
-        {
-            id: 'mercantil',
-            name: 'MERCANTIL',
-            icon: '/images/services/mercantil.svg' // Ícono de edificios
-        },
-        {
-            id: 'laboral',
-            name: 'LABORAL',
-            icon: '/images/services/laboral.png' // Ícono de maletín
-        },
-        {
-            id: 'propiedad',
-            name: 'PROP. INT.',
-            icon: '/images/services/propiedad intelectual.png' // Ícono TM o texto
-        }
-    ];
 
     return (
         <section className="relative flex flex-row min-h-screen justify-center items-center bg-heath-950">
@@ -66,7 +20,7 @@ const Services: React.FC = () => {
 
                 {/* Grid Desktop: 4x2 */}
                 <div className="hidden lg:grid lg:grid-cols-4 justify-center gap-12 xl:gap-16 max-w-6xl mx-auto">
-                    {serviceAreas.map((area) => (
+                    {services.map((area) => (
                         <Link key={area.id}
                             to={'/servicios'}>
                             <div
@@ -94,7 +48,7 @@ const Services: React.FC = () => {
                 {/* Grid Móvil: 2x4 */}
                 < div className="lg:hidden grid grid-cols-2 gap-8 sm:gap-10 max-w-md mx-auto" >
                     {
-                        serviceAreas.map((area) => (
+                        services.map((area) => (
                             <Link key={area.id}
                                 to={'/servicios'}>
                                 <div

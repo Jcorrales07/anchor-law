@@ -3,12 +3,7 @@ import { Menu, X } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useHeaderHeight } from '../../contexts/HeaderHeightContext';
 
-const navItems = [
-    { label: 'INICIO', id: 'home', path: '/' },
-    { label: 'NOSOTROS', id: 'about', path: '/nosotros' },
-    { label: 'SERVICIOS', id: 'services', path: '/servicios' },
-    { label: 'CONTÁCTANOS', id: 'contact', path: '/contactanos' }
-];
+import { navItems } from '../../utils/navData';
 
 const Navbar: React.FC = () => {
     const [isVisible, setIsVisible] = useState(false);
@@ -19,6 +14,8 @@ const Navbar: React.FC = () => {
 
     // Verificar si estamos en la página de inicio
     const isHomePage = location.pathname === '/';
+
+    const isActive = (href: string) => location.pathname === href;
 
     useEffect(() => {
         let lastScrollY = window.scrollY;
@@ -70,7 +67,10 @@ const Navbar: React.FC = () => {
                                 <button
                                     key={item.id}
                                     onClick={() => handleNavigation(item.path)}
-                                    className="cursor-pointer text-harvest-gold-400 hover:text-grandis-300 py-2 text-lg font-bold transition-colors duration-200 rounded-md"
+                                    className={`cursor-pointer  py-2 text-lg font-bold transition-colors duration-200 rounded-md ${isActive(item.path)
+                                    ? 'text-grandis-300 '
+                                    : 'text-harvest-gold-400 hover:text-grandis-300'
+                                    }`}
                                 >
                                     {item.label}
                                 </button>
@@ -110,8 +110,11 @@ const Navbar: React.FC = () => {
                         <button
                             key={item.id}
                             onClick={() => handleNavigation(item.path)}
-                            className={`text-harvest-gold-400 hover:text-red-200 hover:bg-red-800 block px-3 py-2 text-base w-full text-right rounded-md transition-all duration-300 ${isMobileMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-4 opacity-0'
-                                }`}
+                            className={`block px-3 py-2 text-base w-full text-right rounded-md transition-all duration-300 ${isMobileMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-4 opacity-0'
+                                } ${isActive(item.path)
+                                    ? 'text-grandis-300 '
+                                    : 'text-harvest-gold-400 hover:text-grandis-300'
+                                    }`}
                             style={{
                                 transitionDelay: isMobileMenuOpen ? `${index * 100}ms` : '0ms'
                             }}

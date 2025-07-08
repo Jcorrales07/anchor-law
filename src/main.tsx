@@ -1,19 +1,15 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-
-import { BrowserRouter, Route, Routes } from 'react-router'
-
 import './styles/index.css'
 
-import HomePage from './pages/HomePage.tsx'
-import ErrorPage from './pages/ErrorPage.tsx'
-import AboutUsPage from './pages/AboutUsPage.tsx'
-import ServicesPage from './pages/ServicesPage.tsx'
-import ContactUsPage from './pages/ContactUs.tsx'
+import { StrictMode } from 'react'
+import { Toaster } from 'react-hot-toast'
+import { createRoot } from 'react-dom/client'
+
 import Navbar from './components/layout/Navbar.tsx'
 import ScrollToTop from './components/ui/ScrollToTop.tsx'
+import { BrowserRouter, Route, Routes } from 'react-router'
+
 import { HeaderHeightProvider } from './contexts/HeaderHeightContext.tsx'
-import { Toaster } from 'react-hot-toast'
+import { HomePage, AboutUsPage, ServicesPage, ContactUsPage, ErrorPage } from './pages'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
