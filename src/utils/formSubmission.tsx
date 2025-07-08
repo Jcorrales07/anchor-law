@@ -60,7 +60,7 @@ export const handleFormSubmission = async (
         await toast.promise(
             saveToSheetDB(data),
             {
-                loading: 'Guardando tu consulta...',
+                loading: 'Enviando tu consulta...',
                 // success: <b>✅ ¡Consulta guardada exitosamente!</b>,
                 error: <b>❌ Error al guardar la consulta</b>,
             }
@@ -81,7 +81,9 @@ export const handleFormSubmission = async (
             toast.success(
                 <div>
                     <b>🎉 ¡Perfecto, {data.nombre}!</b>
-                    <p>Hemos recibido tu consulta sobre: <strong>{data.materia}</strong>. Nos pondremos en contacto contigo pronto!.</p>
+                    <p>Hemos recibido tu consulta sobre: <strong>{data.materia}</strong>. Nos pondremos en contacto contigo pronto!</p>
+                    <br />
+                    <p>Revisa tu correo electrónico, te enviamos uno de confirmación!</p>
                 </div>,
                 {
                     duration: 10000,
