@@ -1,51 +1,13 @@
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { ChevronDown, Send, Scale, Users, Building, FileText, Heart, Shield, Calculator, Stethoscope, Search, UserCheck, Globe, Building2, Calendar, HelpCircle } from 'lucide-react';
-import { FaTiktok, FaFacebookSquare, FaLinkedin, FaGoogle } from "react-icons/fa"
-import { RiInstagramFill } from "react-icons/ri"
-import { MdFamilyRestroom } from "react-icons/md";
-
+import { ChevronDown, Send } from 'lucide-react';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 
-import emailjs from '@emailjs/browser';
-import toast from 'react-hot-toast';
-
-interface FormData {
-    nombre: string;
-    apellido: string;
-    telefono: string;
-    correo: string;
-    materia: string;
-    consulta: string;
-    comoNosConociste: string;
-}
-
-const materias = [
-    { value: 'Propiedad Intelectual', label: 'Propiedad Intelectual', icon: Scale },
-    { value: 'Laboral', label: 'Laboral', icon: Users },
-    { value: 'Mercantil', label: 'Mercantil', icon: Building },
-    { value: 'Administrativo', label: 'Administrativo', icon: FileText },
-    { value: 'Civil', label: 'Civil', icon: Heart },
-    { value: 'Familia', label: 'Familia', icon: MdFamilyRestroom },
-    { value: 'Penal', label: 'Penal', icon: Shield },
-    { value: 'Fiscal', label: 'Fiscal', icon: Calculator },
-    { value: 'Sanitario', label: 'Sanitario', icon: Stethoscope }
-];
-
-const comoNosConociste = [
-    { value: 'Instagram', label: 'Instagram', icon: RiInstagramFill },
-    { value: 'Facebook', label: 'Facebook', icon: FaFacebookSquare },
-    { value: 'LinkedIn', label: 'LinkedIn', icon: FaLinkedin },
-    { value: 'TikTok', label: 'TikTok', icon: FaTiktok },
-    { value: 'Google Ads', label: 'Google Ads', icon: FaGoogle },
-    { value: 'Referido por conocido', label: 'Referido por conocido', icon: UserCheck },
-    { value: 'Búsqueda en Google', label: 'Búsqueda en Google', icon: Search },
-    { value: 'Página web', label: 'Página web', icon: Globe },
-    { value: 'Directorio profesional', label: 'Directorio profesional', icon: Building2 },
-    { value: 'Evento/Conferencia', label: 'Evento/Conferencia', icon: Calendar },
-    { value: 'Otro', label: 'Otro', icon: HelpCircle }
-];
+// Utils imports
+import { type FormData, materias, comoNosConociste } from '../../utils/formData';
+import { isFormComplete, scrollToFirstError } from '../../utils/formValidation';
+import { handleFormSubmission } from '../../utils/formSubmission';
 
 const LegalConsultationForm: React.FC = () => {
     const [isMateriaDropdownOpen, setIsMateriaDropdownOpen] = useState(false);
@@ -58,13 +20,13 @@ const LegalConsultationForm: React.FC = () => {
     const {
         register,
         handleSubmit,
-        formState: { errors, },
+        formState: { errors },
         watch,
         setValue,
         reset,
         control
     } = useForm<FormData>({
-        mode: 'onSubmit', // Cambiar a onSubmit para que solo valide al enviar
+        mode: 'onSubmit',
         defaultValues: {
             nombre: '',
             apellido: '',
@@ -78,154 +40,30 @@ const LegalConsultationForm: React.FC = () => {
 
     const watchedFields = watch();
 
-    const isValidPhone = (phone: string) => {
-        console.log(phone === '')
-        if (!phone) return false;
-        // Remover espacios y caracteres especiales para contar solo dígitos
-        const digitsOnly = phone.replace(/\D/g, '');
-        // Un teléfono válido debe tener al menos 8 dígitos total
-        return digitsOnly.length > 3 && digitsOnly.length >= 8;
-    };
+    const onSubmit = async (data: FormData) => {
+        setIsSubmitting(true);
+        setShowValidation(false);
 
-    const isFormComplete = () => {
-        const { nombre, apellido, telefono, correo, consulta, } = watchedFields;
-
-        return (
-            nombre && nombre.trim() !== '' &&
-            apellido && apellido.trim() !== '' &&
-            isValidPhone(telefono) &&
-            correo && correo.trim() !== '' &&
-            selectedMateria && selectedMateria.value &&
-            consulta && consulta.trim() !== '' &&
-            selectedComoNosConociste && selectedComoNosConociste.value
+        await handleFormSubmission(
+            data,
+            // onSuccess
+            () => {
+                reset();
+                setSelectedMateria(null);
+                setSelectedComoNosConociste(null);
+                setShowValidation(false);
+                setIsSubmitting(false);
+            },
+            // onError
+            () => {
+                setIsSubmitting(false);
+            }
         );
     };
 
-    const onSubmit = async (data: FormData) => {
-        setIsSubmitting(true);
-        setShowValidation(false); // Ocultar validaciones si el envío es exitoso
-
-        // Función para enviar datos a SheetDB
-        const saveToSheetDB = async () => {
-            const response = await fetch(import.meta.env.VITE_SHEETDB_URL, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    data: [
-                        {
-                            'fecha': new Date().toLocaleString(),
-                            'nombre': data.nombre,
-                            'apellido': data.apellido,
-                            'teléfono': data.telefono,
-                            'email': data.correo,
-                            'materia': data.materia,
-                            'consulta': data.consulta,
-                            'como_nos_conociste': data.comoNosConociste,
-                        }
-                    ]
-                })
-            });
-
-            if (!response.ok) {
-                throw new Error(`Error al guardar los datos: ${response.status}`);
-            }
-
-            return await response.json();
-        };
-
-        // Función para enviar correo de confirmación
-        const sendConfirmationEmail = async () => {
-            return await emailjs.send(
-                import.meta.env.VITE_SERVICE_ID, // Service ID
-                import.meta.env.VITE_TEMPLATE_ID, // Template ID para confirmación al usuario
-                {
-                    nombre: data.nombre,
-                    apellido: data.apellido,
-                    materia: data.materia,
-                    telefono: data.telefono,
-                    conociste: data.comoNosConociste,
-                    consulta: data.consulta,
-                    email: data.correo,
-                },
-                import.meta.env.VITE_EMAILJS_PK // Clave pública de EmailJS
-            );
-        };
-
-        try {
-            // Guardar datos con toast de progreso
-            await toast.promise(
-                saveToSheetDB(),
-                {
-                    loading: 'Guardando tu consulta...',
-                    success: <b>✅ ¡Consulta guardada exitosamente!</b>,
-                    error: <b>❌ Error al guardar la consulta</b>,
-                }
-            );
-
-            // Enviar correo de confirmación con toast de progreso
-            toast.promise(
-                sendConfirmationEmail(),
-                {
-                    loading: 'Enviando correo de confirmación...',
-                    success: <b>📧 ¡Correo de confirmación enviado!</b>,
-                    error: <b>⚠️ No se pudo enviar el correo de confirmación</b>,
-                }
-            );
-
-            // Toast final de éxito personalizado
-            setTimeout(() => {
-                toast.success(
-                    <div>
-                        <b>🎉 ¡Perfecto, {data.nombre}!</b>
-                        <p>Hemos recibido tu consulta sobre <strong>{data.materia}</strong>. Nos pondremos en contacto contigo dentro de 3 días hábiles.</p>
-                    </div>,
-                    {
-                        duration: 10000,
-                        style: {
-                            background: '#10b981',
-                            color: 'white',
-                        },
-                    }
-                );
-            }, 1000);
-
-            // Limpiar formulario
-            reset();
-            setSelectedMateria(null); // Resetear materia
-            setSelectedComoNosConociste(null); // Resetear como nos conociste
-            setShowValidation(false); // Ocultar validaciones después del reset
-
-        } catch (error) {
-            console.error('Error enviando formulario:', error);
-            toast.error(
-                <div>
-                    <b>❌ Ups, algo salió mal</b>
-                    <p>No pudimos procesar tu consulta. Por favor, intenta nuevamente o contáctanos directamente.</p>
-                </div>,
-                {
-                    duration: 5000,
-                    style: {
-                        background: '#ef4444',
-                        color: 'white',
-                    },
-                }
-            );
-        } finally {
-            setIsSubmitting(false);
-        }
-    };
-
     const onError = (errors: any) => {
-        setShowValidation(true); // Mostrar validaciones solo cuando hay errores
-        // Hacer scroll al primer error
-        const firstErrorField = Object.keys(errors)[0];
-        const element = document.querySelector(`[name="${firstErrorField}"]`);
-        if (element) {
-            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
+        setShowValidation(true);
+        scrollToFirstError(errors);
     };
 
     const handleMateriaSelect = (materia: any) => {
@@ -241,7 +79,7 @@ const LegalConsultationForm: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen  relative bg-romance-50 flex justify-center items-center">
+        <div className="min-h-screen relative bg-romance-50 flex justify-center items-center">
             <div className="lg:block hidden absolute top-0 right-24 bottom-0 border-r-4 border-heath-950 z-30"></div>
 
             <div className="max-w-2xl mx-auto px-8 py-20">
@@ -326,7 +164,6 @@ const LegalConsultationForm: React.FC = () => {
                                     inputStyle={{
                                         width: '100%',
                                         backgroundColor: '#d1ad73',
-                                        // backgroundColor: errors.telefono ? '#d1ad73' : '#fef2f2',
                                         border: showValidation && errors.telefono ? '2px solid #fa5050' : '2px solid transparent',
                                         borderRadius: '0px',
                                         height: '52px',
@@ -367,7 +204,6 @@ const LegalConsultationForm: React.FC = () => {
                             <p className="text-red-500 text-sm mt-1">{errors.telefono.message}</p>
                         )}
                     </div>
-
 
                     {/* Correo electrónico */}
                     <div>
@@ -504,7 +340,7 @@ const LegalConsultationForm: React.FC = () => {
                             type="button"
                             onClick={handleSubmit(onSubmit, onError)}
                             disabled={isSubmitting}
-                            className={`w-full md:w-auto px-8 py-3 font-semibold text-black transition-all duration-300 transform ${isFormComplete() && !isSubmitting
+                            className={`w-full md:w-auto px-8 py-3 font-semibold text-black transition-all duration-300 transform ${isFormComplete(watchedFields, selectedMateria, selectedComoNosConociste) && !isSubmitting
                                 ? 'bg-harvest-gold-400 hover:bg-grandis-300 hover:scale-105 shadow-lg hover:shadow-xl animate-pulse cursor-pointer'
                                 : 'bg-gray-400 cursor-not-allowed'
                                 }`}
@@ -536,4 +372,4 @@ const LegalConsultationForm: React.FC = () => {
     );
 }
 
-export default LegalConsultationForm
+export default LegalConsultationForm;
