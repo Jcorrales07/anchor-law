@@ -13,6 +13,7 @@ import ContactUsPage from './pages/ContactUs.tsx'
 import Navbar from './components/layout/Navbar.tsx'
 import ScrollToTop from './components/ui/ScrollToTop.tsx'
 import { HeaderHeightProvider } from './contexts/HeaderHeightContext.tsx'
+import { Toaster } from 'react-hot-toast'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -27,6 +28,7 @@ createRoot(document.getElementById('root')!).render(
           <Route path='/contactanos' element={<ContactUsPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
+        <Toaster />
       </HeaderHeightProvider>
     </BrowserRouter>
   </StrictMode>,

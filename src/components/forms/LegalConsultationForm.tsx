@@ -8,6 +8,9 @@ import { MdFamilyRestroom } from "react-icons/md";
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 
+import emailjs from '@emailjs/browser';
+import toast from 'react-hot-toast';
+
 interface FormData {
     nombre: string;
     apellido: string;
@@ -102,17 +105,92 @@ const LegalConsultationForm: React.FC = () => {
         setIsSubmitting(true);
         setShowValidation(false); // Ocultar validaciones si el envío es exitoso
 
-        try {
-            // Aquí irá la lógica de envío (SheetDB + EmailJS)
-            console.log('Datos del formulario:', {
-                ...data,
+        // Función para enviar datos a SheetDB
+        const saveToSheetDB = async () => {
+            const response = await fetch(import.meta.env.VITE_SHEETDB_URL, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    data: [
+                        {
+                            'fecha': new Date().toLocaleString(),
+                            'nombre': data.nombre,
+                            'apellido': data.apellido,
+                            'teléfono': data.telefono,
+                            'email': data.correo,
+                            'materia': data.materia,
+                            'consulta': data.consulta,
+                            'como_nos_conociste': data.comoNosConociste,
+                        }
+                    ]
+                })
             });
 
-            // Simular envío
-            await new Promise(resolve => setTimeout(resolve, 2000));
+            if (!response.ok) {
+                throw new Error(`Error al guardar los datos: ${response.status}`);
+            }
 
-            // Mostrar mensaje de éxito
-            alert('¡Formulario enviado con éxito! Nos pondremos en contacto contigo pronto.');
+            return await response.json();
+        };
+
+        // Función para enviar correo de confirmación
+        const sendConfirmationEmail = async () => {
+            return await emailjs.send(
+                import.meta.env.VITE_SERVICE_ID, // Service ID
+                import.meta.env.VITE_TEMPLATE_ID, // Template ID para confirmación al usuario
+                {
+                    nombre: data.nombre,
+                    apellido: data.apellido,
+                    materia: data.materia,
+                    telefono: data.telefono,
+                    conociste: data.comoNosConociste,
+                    consulta: data.consulta,
+                    email: data.correo,
+                },
+                import.meta.env.VITE_EMAILJS_PK // Clave pública de EmailJS
+            );
+        };
+
+        try {
+            // Guardar datos con toast de progreso
+            await toast.promise(
+                saveToSheetDB(),
+                {
+                    loading: 'Guardando tu consulta...',
+                    success: <b>✅ ¡Consulta guardada exitosamente!</b>,
+                    error: <b>❌ Error al guardar la consulta</b>,
+                }
+            );
+
+            // Enviar correo de confirmación con toast de progreso
+            toast.promise(
+                sendConfirmationEmail(),
+                {
+                    loading: 'Enviando correo de confirmación...',
+                    success: <b>📧 ¡Correo de confirmación enviado!</b>,
+                    error: <b>⚠️ No se pudo enviar el correo de confirmación</b>,
+                }
+            );
+
+            // Toast final de éxito personalizado
+            setTimeout(() => {
+                toast.success(
+                    <div>
+                        <b>🎉 ¡Perfecto, {data.nombre}!</b>
+                        <p>Hemos recibido tu consulta sobre <strong>{data.materia}</strong>. Nos pondremos en contacto contigo dentro de 3 días hábiles.</p>
+                    </div>,
+                    {
+                        duration: 10000,
+                        style: {
+                            background: '#10b981',
+                            color: 'white',
+                        },
+                    }
+                );
+            }, 1000);
 
             // Limpiar formulario
             reset();
@@ -122,7 +200,19 @@ const LegalConsultationForm: React.FC = () => {
 
         } catch (error) {
             console.error('Error enviando formulario:', error);
-            alert('Hubo un error al enviar el formulario. Por favor intenta nuevamente.');
+            toast.error(
+                <div>
+                    <b>❌ Ups, algo salió mal</b>
+                    <p>No pudimos procesar tu consulta. Por favor, intenta nuevamente o contáctanos directamente.</p>
+                </div>,
+                {
+                    duration: 5000,
+                    style: {
+                        background: '#ef4444',
+                        color: 'white',
+                    },
+                }
+            );
         } finally {
             setIsSubmitting(false);
         }
@@ -415,7 +505,7 @@ const LegalConsultationForm: React.FC = () => {
                             onClick={handleSubmit(onSubmit, onError)}
                             disabled={isSubmitting}
                             className={`w-full md:w-auto px-8 py-3 font-semibold text-black transition-all duration-300 transform ${isFormComplete() && !isSubmitting
-                                ? 'bg-harvest-gold-400 hover:bg-grandis-300 hover:scale-105 shadow-lg hover:shadow-xl animate-pulse'
+                                ? 'bg-harvest-gold-400 hover:bg-grandis-300 hover:scale-105 shadow-lg hover:shadow-xl animate-pulse cursor-pointer'
                                 : 'bg-gray-400 cursor-not-allowed'
                                 }`}
                         >
