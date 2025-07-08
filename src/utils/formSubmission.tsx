@@ -61,17 +61,17 @@ export const handleFormSubmission = async (
             saveToSheetDB(data),
             {
                 loading: 'Guardando tu consulta...',
-                success: <b>✅ ¡Consulta guardada exitosamente!</b>,
+                // success: <b>✅ ¡Consulta guardada exitosamente!</b>,
                 error: <b>❌ Error al guardar la consulta</b>,
             }
         );
 
         // Enviar correo de confirmación con toast de progreso
-        toast.promise(
+        await toast.promise(
             sendConfirmationEmail(data),
             {
                 loading: 'Enviando correo de confirmación...',
-                success: <b>📧 ¡Correo de confirmación enviado!</b>,
+                // success: <b>📧 ¡Correo de confirmación enviado!</b>,
                 error: <b>⚠️ No se pudo enviar el correo de confirmación</b>,
             }
         );
@@ -81,7 +81,7 @@ export const handleFormSubmission = async (
             toast.success(
                 <div>
                     <b>🎉 ¡Perfecto, {data.nombre}!</b>
-                    <p>Hemos recibido tu consulta sobre <strong>{data.materia}</strong>. Nos pondremos en contacto contigo dentro de 3 días hábiles.</p>
+                    <p>Hemos recibido tu consulta sobre: <strong>{data.materia}</strong>. Nos pondremos en contacto contigo pronto!.</p>
                 </div>,
                 {
                     duration: 10000,
