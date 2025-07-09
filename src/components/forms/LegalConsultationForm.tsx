@@ -90,7 +90,7 @@ const LegalConsultationForm: React.FC = () => {
                     <p className="font-secondary-alike text-lg text-gray-600 mb-2">
                         ¿Buscas asesoría legal confiable?
                     </p>
-                    <p className="text-gray-700 font-secondary-alike text-start text-lg">
+                    <p className="text-gray-700 font-secondary-alike text text-center lg:text-start text-lg">
                         En <span className="font-semibold text-heath-950">Anchor Law</span> estamos listos para ayudarte.
                         Contáctanos y encuentra en nosotros{' '}
                         <span className="font-semibold">el aliado legal que necesitas.</span>
